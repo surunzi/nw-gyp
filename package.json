@@ -10,7 +10,7 @@
     "bindings",
     "gyp"
   ],
-  "version": "0.10.9",
+  "version": "0.12.2",
   "installVersion": 9,
   "author": "Roger Wang <wenrui@gmail.com> (based on node-gyp)",
   "repository": { "type": "git", "url": "https://github.com/rogerwang/nw-gyp.git" },
@@ -28,7 +28,7 @@
     "osenv": "0",
     "request": "2",
     "rimraf": "2",
-    "semver": "~2.1",
+    "semver": "~2.2.1",
     "tar": "0",
     "which": "1"
   },
