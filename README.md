@@ -78,6 +78,8 @@ you can require the `.node` file with Node and run your tests!
 __Note:__ To create a _Debug_ build of the bindings file, pass the `--debug` (or
 `-d`) switch when running the either `configure` or `build` command.
 
+__Note:__ nw.js is packed with Node.js version 0.11.13 and a different version of V8 (3.28.71.2) than the one Node.js 0.11.13 has (3.24.35.22), it might lead to some inconsistent behaviour when building your native modules (see [rvagg/nan#285][nanrepo]).
+
 
 The "binding.gyp" file
 ----------------------
@@ -157,3 +159,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [msvc2012]: http://go.microsoft.com/?linkid=9816758
 [win7sdk]: http://www.microsoft.com/en-us/download/details.aspx?id=8279
 [compiler update for the Windows SDK 7.1]: http://www.microsoft.com/en-us/download/details.aspx?id=4422
+[nanrepo]: https://github.com/rvagg/nan/pull/285
