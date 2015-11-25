@@ -10,7 +10,7 @@
     "bindings",
     "gyp"
   ],
-  "version": "0.12.4",
+  "version": "0.13.0",
   "installVersion": 9,
   "author": "Roger Wang <wenrui@gmail.com> (based on node-gyp)",
   "repository": { "type": "git", "url": "https://github.com/rogerwang/nw-gyp.git" },

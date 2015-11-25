@@ -42,7 +42,8 @@
           '-luuid.lib',
           '-lodbc32.lib',
           '-lDelayImp.lib',
-          '-l<(node_root_dir)/$(Configuration)/nw.lib'
+          '-l<(node_root_dir)/$(Configuration)/nw.lib',
+          '-l<(node_root_dir)/$(Configuration)/node.lib'
         ],
         # warning C4251: 'node::ObjectWrap::handle_' : class 'v8::Persistent<T>'
         # needs to have dll-interface to be used by clients of class 'node::ObjectWrap'
@@ -50,6 +51,11 @@
       }, {
         # OS!="win"
         'defines': [ '_LARGEFILE_SOURCE', '_FILE_OFFSET_BITS=64' ],
+      }],
+      [ 'OS=="win" and v13!=1', {
+        'libraries!': [
+          '-l<(node_root_dir)/$(Configuration)/node.lib'
+        ],
       }],
       [ 'OS=="freebsd" or OS=="openbsd" or OS=="solaris" or (OS=="linux" and target_arch!="ia32")', {
         'cflags': [ '-fPIC' ],
