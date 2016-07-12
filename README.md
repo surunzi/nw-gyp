@@ -1,18 +1,14 @@
-node-gyp
+nw-gyp
 =========
-### Node.js native addon build tool
+### Native addon build tool for NW.js (node-webkit)
 
-`node-gyp` is a cross-platform command-line tool written in Node.js for compiling
-native addon modules for Node.js.  It bundles the [gyp](https://code.google.com/p/gyp/)
-project used by the Chromium team and takes away the pain of dealing with the
-various differences in build platforms. It is the replacement to the `node-waf`
-program which is removed for node `v0.8`. If you have a native addon for node that
-still has a `wscript` file, then you should definitely add a `binding.gyp` file
-to support the latest versions of node.
+`nw-gyp` is a hack on `node-gyp` to build native modules for NW.js (node-webkit). We are
+trying to provide a smooth way for developers rather than specifying a lot of 
+command line arguments.
 
-Multiple target versions of node are supported (i.e. `0.8`, ..., `4`, `5`, `6`,
-etc.), regardless of what version of node is actually installed on your system
-(`node-gyp` downloads the necessary development files or headers for the target version).
+It supports NW.js starts from v0.3.2 and **users need to manually specify the
+version of NW.js currently**.
+
 
 #### Features:
 
@@ -27,7 +23,7 @@ Installation
 You can install with `npm`:
 
 ``` bash
-$ npm install -g node-gyp
+$ npm install -g nw-gyp
 ```
 
 You will also need to install:
@@ -55,13 +51,13 @@ You will also need to install:
     If the above steps didn't work for you, please visit [Microsoft's Node.js Guidelines for Windows](https://github.com/Microsoft/nodejs-guidelines/blob/master/windows-environment.md#compiling-native-addon-modules) for additional tips.
 
 If you have multiple Python versions installed, you can identify which Python
-version `node-gyp` uses by setting the '--python' variable:
+version `nw-gyp` uses by setting the '--python' variable:
 
 ``` bash
-$ node-gyp --python /path/to/python2.7
+$ nw-gyp --python /path/to/python2.7
 ```
 
-If `node-gyp` is called by way of `npm` *and* you have multiple versions of
+If `nw-gyp` is called by way of `npm` *and* you have multiple versions of
 Python installed, then you can set `npm`'s 'python' config key to the appropriate
 value:
 
@@ -86,7 +82,7 @@ The next step is to generate the appropriate project build files for the current
 platform. Use `configure` for that:
 
 ``` bash
-$ node-gyp configure
+$ nw-gyp configure --target=<0.3.2 or other nw version>
 ```
 
 __Note__: The `configure` step looks for the `binding.gyp` file in the current
@@ -96,7 +92,7 @@ Now you will have either a `Makefile` (on Unix platforms) or a `vcxproj` file
 (on Windows) in the `build/` directory. Next invoke the `build` command:
 
 ``` bash
-$ node-gyp build
+$ nw-gyp build
 ```
 
 Now you have your compiled `.node` bindings file! The compiled bindings end up
@@ -105,6 +101,8 @@ you can require the `.node` file with Node and run your tests!
 
 __Note:__ To create a _Debug_ build of the bindings file, pass the `--debug` (or
 `-d`) switch when running either the `configure`, `build` or `rebuild` command.
+
+__Note:__ nw.js is packed with Node.js version 0.11.13 and a different version of V8 (3.28.71.2) than the one Node.js 0.11.13 has (3.24.35.22), it might lead to some inconsistent behaviour when building your native modules (see [rvagg/nan#285][nanrepo]).
 
 
 The "binding.gyp" file
@@ -140,7 +138,7 @@ Some additional resources for addons and writing `gyp` files:
 Commands
 --------
 
-`node-gyp` responds to the following commands:
+`nw-gyp` responds to the following commands:
 
 | **Command**   | **Description**
 |:--------------|:---------------------------------------------------------------
@@ -157,7 +155,7 @@ Commands
 Command Options
 --------
 
-`node-gyp` accepts the following command options:
+`nw-gyp` accepts the following command options:
 
 | **Command**                       | **Description**
 |:----------------------------------|:------------------------------------------
@@ -210,7 +208,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-[python-v2.7.10]: https://www.python.org/downloads/release/python-2710/
-[msvc2013]: https://www.microsoft.com/en-gb/download/details.aspx?id=44914
-[win7sdk]: https://www.microsoft.com/en-us/download/details.aspx?id=8279
-[compiler update for the Windows SDK 7.1]: https://www.microsoft.com/en-us/download/details.aspx?id=4422
+[windows-python]: http://www.python.org/getit/windows
+[windows-python-v2.7.3]: http://www.python.org/download/releases/2.7.3#download
+[msvc2010]: http://go.microsoft.com/?linkid=9709949
+[msvc2012]: http://go.microsoft.com/?linkid=9816758
+[win7sdk]: http://www.microsoft.com/en-us/download/details.aspx?id=8279
+[compiler update for the Windows SDK 7.1]: http://www.microsoft.com/en-us/download/details.aspx?id=4422

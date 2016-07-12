@@ -92,7 +92,8 @@
           '-luuid.lib',
           '-lodbc32.lib',
           '-lDelayImp.lib',
-          '-l"<(node_root_dir)/$(ConfigurationName)/<(node_lib_file)"'
+          '-l"<(node_root_dir)/$(ConfigurationName)/nw.lib"',
+          '-l"<(node_root_dir)/$(ConfigurationName)/node.lib"'
         ],
         'msvs_disabled_warnings': [
           # warning C4251: 'node::ObjectWrap::handle_' : class 'v8::Persistent<T>'
@@ -105,6 +106,11 @@
         'defines': [
           '_LARGEFILE_SOURCE',
           '_FILE_OFFSET_BITS=64'
+        ],
+      }],
+      [ 'OS=="win" and v13!=1', {
+        'libraries!': [
+          '-l"<(node_root_dir)/$(ConfigurationName)/node.lib"'
         ],
       }],
       [ 'OS in "freebsd openbsd netbsd solaris" or \
